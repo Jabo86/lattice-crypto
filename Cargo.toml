@@ -1,0 +1,23 @@
+[package]
+name = "lattice-crypto"
+version = "1.0.0"
+edition = "2021"
+description = "Lattice Network — primitive crittografiche post-quantistiche estratte dal nodo (ML-DSA-65, AES-256-GCM, quorum QBFT)."
+license-file = "LICENSE"
+repository = "https://github.com/Jabo86/lattice-crypto"
+readme = "README.md"
+keywords = ["post-quantum", "ml-dsa", "fips204", "consensus", "encryption"]
+categories = ["cryptography"]
+
+[dependencies]
+fips204 = "0.4"
+sha3 = "0.10"
+hex = "0.4"
+aes-gcm = "0.10"
+rand = "0.8"
+base64 = "0.22"
+zeroize = "1.9"
+
+[lib]
+name = "lattice_crypto"
+path = "src/lib.rs"

@@ -1,0 +1,29 @@
+name: prove
+
+# Le prove girano a ogni modifica, su una macchina che non è la nostra: così "i test
+# passano" non è una nostra affermazione, è un fatto che chiunque può rileggere.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cargo-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: versione di Rust
+        run: rustc --version && cargo --version
+      - name: compilazione
+        run: cargo build --all-targets --verbose
+      - name: prove
+        run: cargo test --release -- --nocapture
+      - name: analisi statica (nessun avviso ammesso)
+        run: |
+          rustup component add clippy
+          cargo clippy --all-targets -- -D warnings
+      - name: formattazione
+        run: |
+          rustup component add rustfmt
+          cargo fmt --check
